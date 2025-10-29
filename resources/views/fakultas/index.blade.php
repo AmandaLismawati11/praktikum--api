@@ -1,14 +1,9 @@
-    @extends('layouts.app')
+@extends('layouts.app')   
 
-    @section('content')
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Daftar Fakultas</h1>
-                    <a href="{{ route('fakultas.create') }}" class="btn btn-primary mb-4">Tambah Fakultas</a>
-
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+@section('content')
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">Daftar Fakultas</h1>
+<a href="{{ route('fakultas.create')}}" class="btn btn-primary">Tambah Fakultas</a>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 mt-4">
@@ -23,6 +18,7 @@
                                             <th>No</th>
                                             <th>Nama Fakultas</th>
                                             <th>Kode Fakultas</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -30,23 +26,29 @@
                                             <th>No</th>
                                             <th>Nama Fakultas</th>
                                             <th>Kode Fakultas</th>
+                                            <th>Aksi</th>
+
                                         </tr>
                                     </tfoot>
                                     <tbody>
-    @foreach ($fakultas as $item)
-                            <tr>
-                                <td>1</td>
-                                <td>{{$item->nama_fakultas}}</td>
-                                <td>{{ $item->kode_fakultas }}</td>
-                            </tr>
-    @endforeach
-                                        
 
+                            @foreach ($fakultas as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->nama_fakultas}}</td>
+                                            <td>{{$item->kode_fakultas}}</td>
+                                            <td>
+                                                <a href="{{ route('fakultas.edit',$item->id) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{ route('fakultas.hapus',$item->id) }}" class="btn btn-danger">Hapus</a>
+                                            </td>
+                                        </tr>
+                            @endforeach
+                                        
+                                        
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
 
-
-    @endsection
+@endsection
