@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class fakultas extends Model
+class Fakultas extends Model
 {
     use HasFactory;
 
     protected $fillable = ['nama_fakultas', 'kode_fakultas'];
+
+    public function prodis() {
+
+        return $this->hasMany(Prodi::class, 'fakultas_id');
+    }
 }
