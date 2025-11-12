@@ -49,3 +49,6 @@ Route::get('/profil', function () {
 Route::get('/data', function () {
     return view('data');
 });
+
+Route::get('/register', [AuthController::class,'formRegister'])->name('register');
+Route::post('/pos-register', [AuthController::class, 'post'])->name('post');

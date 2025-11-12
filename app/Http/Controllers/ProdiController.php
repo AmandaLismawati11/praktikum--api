@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prodi;
+use App\Models\prodi;
 use App\Models\Fakultas;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class ProdiController extends Controller
      */
     public function index()
     {
-        $prodi = Prodi::all();
+        $prodi = prodi::all();
         return view('prodi.index', compact('prodi'));
     }
 
@@ -21,11 +21,10 @@ class ProdiController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-
     {
         $fakultas = Fakultas::all();
-        $prodi = Prodi::all();
-          return view('prodi.create', compact('prodi', 'fakultas'));
+        $prodi = prodi::all();
+        return view('prodi.create',compact('prodi','fakultas'));
     }
 
     /**
@@ -35,19 +34,17 @@ class ProdiController extends Controller
     {
         $validate = $request->validate([
             'nama_prodi' => 'required|max:50',
-                    'kode_prodi' => 'required',
+            'kode_prodi' => 'required',
             'fakultas_id' => 'required'
-
         ]);
-        $prodi = Prodi::create([
+        $prodi = prodi::create([
             'nama_prodi' => $request->nama_prodi,
-                     'kode_prodi' => $request->kode_prodi,
-            'fakultas_id' => $request->fakultas_id
-
+            'kode_prodi' => $request->kode_prodi,
+            'fakultas_id' =>$request->fakultas_id
         ]);
 
         return redirect()->route('prodi.index');
-         }
+    }
 
     /**
      * Display the specified resource.
@@ -62,9 +59,9 @@ class ProdiController extends Controller
      */
     public function edit(string $id)
     {
-           $prodi = Prodi::find($id);
+        $prodi = prodi::findOrFail($id);
         $fakultas = Fakultas::all();
-        return view('prodi.edit', compact('prodi', 'fakultas'));
+        return view('prodi.edit', compact('prodi','fakultas'));
     }
 
     /**
@@ -72,17 +69,15 @@ class ProdiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-          $validate = $request->validate([
+        $validate = $request->validate([
             'nama_prodi' => 'required|max:50',
-            'kode_prodi' => 'required'
+            'kode_prodi' => 'required',
         ]);
 
-        $prodi = Prodi::findOrFail($id);
+        $prodi = prodi::findOrFail($id);
         $prodi->update([
-            'nama_prodi' => $request->nama_prodi,
-            'kode_prodi' => $request->kode_prodi,
-            'fakultas_id' => $request->fakultas_id
-
+            'nama_prodi'=> $request->nama_prodi,
+            'kode_prodi'=> $request->kode_prodi,
         ]);
 
         return redirect()->route('prodi.index');
@@ -93,8 +88,9 @@ class ProdiController extends Controller
      */
     public function destroy(string $id)
     {
-           $prodi = prodi::findOrFail($id);
+        $prodi = prodi::findOrFail($id);
+
         $prodi->delete();
-        return Redirect()->route('prodi.index');
+        return redirect()->route('prodi.index');
     }
 }
