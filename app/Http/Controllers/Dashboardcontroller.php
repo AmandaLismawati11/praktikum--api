@@ -13,8 +13,8 @@ class DashboardController extends Controller
 
         $fakultas = Fakultas::first();
         $prodi = prodi::first();
-        $mahasiswa = Mahasiswa::first();
+        //$mahasiswa = Mahasiswa::first();
 
-        return view('welcome', compact('fakultas','prodi','mahasiswa'));
+        return view('welcome', compact('fakultas','prodi'));
     }
 }
